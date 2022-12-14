@@ -1,4 +1,7 @@
-import Image from "next/image"
+import Image from "next/image";
+import SidebarMenuItem from "./SidebarMenuItem";
+import {HomeIcon} from "@heroicons/react/solid";
+import { BellIcon, BookmarkIcon, ClipboardIcon, DotsCircleHorizontalIcon, HashtagIcon, InboxInIcon, UserIcon } from "@heroicons/react/outline"
 
 export default function Sidebar() {
   return (
@@ -9,6 +12,18 @@ export default function Sidebar() {
         </div>
 
         {/* menu */}
+        <div className="">
+
+            <SidebarMenuItem text="Home" Icon={HomeIcon} />
+            <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
+            <SidebarMenuItem text="Notifications" Icon={BellIcon} />
+            <SidebarMenuItem text="Messages" Icon={InboxInIcon} />
+            <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
+            <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
+            <SidebarMenuItem text="Profile" Icon={UserIcon} />
+            <SidebarMenuItem text="More" Icon={DotsCircleHorizontalIcon} />
+
+        </div>
 
         {/* button */}
 
