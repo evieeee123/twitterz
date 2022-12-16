@@ -1,7 +1,7 @@
 import Image from "next/image";
 import SidebarMenuItem from "./SidebarMenuItem";
 import {HomeIcon} from "@heroicons/react/solid";
-import { BellIcon, BookmarkIcon, ClipboardIcon, DotsCircleHorizontalIcon, HashtagIcon, InboxInIcon, UserIcon } from "@heroicons/react/outline"
+import { BellIcon, BookmarkIcon, ClipboardIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon, HashtagIcon, InboxInIcon, UserIcon } from "@heroicons/react/outline"
 
 export default function Sidebar() {
   return (
@@ -27,7 +27,20 @@ export default function Sidebar() {
 
         {/* button */}
 
+        <button>
+            Tweet
+        </button>
+
         {/* mini profile */}
+
+        <div className="">
+            <img src="https://cdn-icons-png.flaticon.com/512/146/146035.png" alt="user-img" />
+            <div className="">
+                <h4>Tia King</h4>
+                <p>code everyday</p>
+            </div>
+            <DotsHorizontalIcon height="20" />
+        </div>
 
     </div>
   )
