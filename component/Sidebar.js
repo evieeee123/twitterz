@@ -7,7 +7,7 @@ export default function Sidebar() {
   return (
     <div>
         {/* Twitter logo */}
-        <div className="">
+        <div className="hoverEffect">
               <Image width="50" height="50" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Twitter-logo.svg/800px-Twitter-logo.svg.png"></Image>
         </div>
 
@@ -33,7 +33,7 @@ export default function Sidebar() {
 
         {/* mini profile */}
 
-        <div className="">
+          <div className="hoverEffect">
             <img src="https://cdn-icons-png.flaticon.com/512/146/146035.png" alt="user-img" />
             <div className="">
                 <h4>Tia King</h4>
