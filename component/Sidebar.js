@@ -14,7 +14,7 @@ export default function Sidebar() {
         {/* menu */}
         <div className="">
 
-            <SidebarMenuItem text="Home" Icon={HomeIcon} />
+            <SidebarMenuItem text="Home" Icon={HomeIcon} active />
             <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
             <SidebarMenuItem text="Notifications" Icon={BellIcon} />
             <SidebarMenuItem text="Messages" Icon={InboxInIcon} />
