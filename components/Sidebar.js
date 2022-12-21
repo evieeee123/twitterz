@@ -5,14 +5,14 @@ import { BellIcon, BookmarkIcon, ClipboardIcon, DotsCircleHorizontalIcon, DotsHo
 
 export default function Sidebar() {
   return (
-    <div>
+    <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full">
         {/* Twitter logo */}
-        <div className="hoverEffect">
-              <Image width="50" height="50" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Twitter-logo.svg/800px-Twitter-logo.svg.png"></Image>
+        <div className="hoverEffect p-0 hover:bg-blue-100 xl:px-1">
+        <Image width="50" height="50" src="https://help.twitter.com/content/dam/help-twitter/brand/logo.png" alt="twitter logo"></Image>
         </div>
 
         {/* menu */}
-        <div className="">
+        <div className="mt-4 mb-2.5 xl:items-start">
 
             <SidebarMenuItem text="Home" Icon={HomeIcon} active />
             <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
@@ -27,19 +27,19 @@ export default function Sidebar() {
 
         {/* button */}
 
-        <button>
+        <button className="bg-blue-400 rounded-full text-white w-56 h-12 font-bold shadow-md hover:brightness-95 hidden xl:inline">
             Tweet
         </button>
 
         {/* mini profile */}
 
-          <div className="hoverEffect">
-            <img src="https://cdn-icons-png.flaticon.com/512/146/146035.png" alt="user-img" />
-            <div className="">
-                <h4>Tia King</h4>
-                <p>code everyday</p>
+          <div className="hoverEffect text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
+            <img src="https://cdn-icons-png.flaticon.com/512/146/146035.png" alt="user-img" className="h-10 w-10 rounded-full xl:mr-2" />
+            <div className="leading-5 hidden xl:inline">
+                <h4 className="font-boid">Tia King</h4>
+                <p className="text-gray-500">code everyday</p>
             </div>
-            <DotsHorizontalIcon height="20" />
+            <DotsHorizontalIcon className="h-5 xl:ml-8 hidden xl:inline" />
         </div>
 
     </div>
