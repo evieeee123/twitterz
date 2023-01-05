@@ -11,7 +11,7 @@ export default function Feed() {
       userImg: "https://cdn-icons-png.flaticon.com/512/146/146035.png",
       img: "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       text: "nice view!",
-      timestamps: "2 hours ago"
+      timestamp: "2 hours ago"
     },
     {
       id: "2",
@@ -20,7 +20,7 @@ export default function Feed() {
       userImg: "https://cdn-icons-png.flaticon.com/512/146/146035.png",
       img: "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80",
       text: "Wowww",
-      timestamps: "3 hours ago"
+      timestamp: "3 hours ago"
     }
   ]
   return (
