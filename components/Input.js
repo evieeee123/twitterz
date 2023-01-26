@@ -1,20 +1,41 @@
 import { EmojiHappyIcon, PhotographIcon } from "@heroicons/react/outline";
-import { collection } from "firebase/firestore";
+import { collection, serverTimestamp } from "firebase/firestore";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import { db } from "../firebase";
 import { addDoc } from "firebase/firestore";
+import { useRef } from "react";
 
 
 export default function Input() {
   const {data: session} = useSession();
   const [input, setInput] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null)
+  const filePickerRef = useRef(null);
+
   const sendPost = async () => {
     const docRef = await addDoc(collection(db, "post"), {
       id: session.user.uid,
-      text: input
+      text: input,
+      userImg: session.user.image,
+      timestamp: serverTimestamp(),
+      name: session.user.name,
+      username: session.user.username
     })
+
+    setInput("")
   }
+
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if (e.target.files[0]){
+      reader.readAsDataURL(e.target.files[0])
+    }
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result)
+    }
+  }
+
   return (
     <>
     {session && (
@@ -31,7 +52,10 @@ export default function Input() {
               </div>
               <div className="flex items-center justify-between pt-2.5">
                   <div className="flex">
+                    <div className="" onClick={() => filePickerRef.current.click()}>
                       <PhotographIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
+                      <input type="file" hidden ref={filePickerRef} onClick={addImageToPost} />
+                    </div>
                       <EmojiHappyIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
                   </div>
                   <button onClick={sendPost} disabled={!input.trim()} className="bg-blue-400 text-white px-4 py-1.5 rounded-full font-bold shadow-md hover:brightness-95 disabled:opacity-50">Tweet</button>
