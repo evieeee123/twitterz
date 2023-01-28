@@ -2,9 +2,10 @@ import { EmojiHappyIcon, PhotographIcon } from "@heroicons/react/outline";
 import { collection, serverTimestamp } from "firebase/firestore";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import { addDoc } from "firebase/firestore";
 import { useRef } from "react";
+import { getDownloadURL, uploadString, ref } from "firebase/storage";
 
 
 export default function Input() {
@@ -22,6 +23,14 @@ export default function Input() {
       name: session.user.name,
       username: session.user.username
     })
+
+    const imageRef = ref(storage,`posts/${docRef.id}/image`);
+
+    if(setSelectedFile){
+      await uploadString(imageRef, selectedFile, "data_url").then(async() => {
+        const downloadURL = await getDownloadURL(imageRef, selectedFile);
+      })
+    }
 
     setInput("")
   }
