@@ -3,9 +3,9 @@ import { collection, serverTimestamp } from "firebase/firestore";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import { db, storage } from "../firebase";
-import { addDoc } from "firebase/firestore";
+import { addDoc, doc, updateDoc } from "firebase/firestore";
 import { useRef } from "react";
-import { getDownloadURL, uploadString, ref } from "firebase/storage";
+import { getDownloadURL, uploadString, ref} from "firebase/storage";
 
 
 export default function Input() {
@@ -15,7 +15,7 @@ export default function Input() {
   const filePickerRef = useRef(null);
 
   const sendPost = async () => {
-    const docRef = await addDoc(collection(db, "post"), {
+    const docRef = await addDoc(collection(db, "posts"), {
       id: session.user.uid,
       text: input,
       userImg: session.user.image,
@@ -29,6 +29,9 @@ export default function Input() {
     if(setSelectedFile){
       await uploadString(imageRef, selectedFile, "data_url").then(async() => {
         const downloadURL = await getDownloadURL(imageRef, selectedFile);
+        await updateDoc(doc(db, "posts", docRef.id), {
+          image: downloadURL
+        })
       })
     }
 
