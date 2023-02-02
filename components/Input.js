@@ -26,7 +26,7 @@ export default function Input() {
 
     const imageRef = ref(storage,`posts/${docRef.id}/image`);
 
-    if(setSelectedFile){
+    if(selectedFile){
       await uploadString(imageRef, selectedFile, "data_url").then(async() => {
         const downloadURL = await getDownloadURL(imageRef, selectedFile);
         await updateDoc(doc(db, "posts", docRef.id), {
@@ -35,7 +35,8 @@ export default function Input() {
       })
     }
 
-    setInput("")
+    setInput("");
+    setSelectedFile(null)
   }
 
   const addImageToPost = (e) => {
@@ -62,11 +63,16 @@ export default function Input() {
               <div className="divide-y divide-gray-700">
                   <textarea className="w-full border-none focus:ring-0 text-lg placehoder-gray-700 tracking-wide min-h-[50px] text-gray-700" rows={2} placeholder="What's happening?" value={input} onChange={(e) => setInput(e.target.value)}></textarea>
               </div>
+              {selectedFile && (
+                <div className="">
+                  <img src={selectedFile} alt="" />
+                </div>
+              )}
               <div className="flex items-center justify-between pt-2.5">
                   <div className="flex">
                     <div className="" onClick={() => filePickerRef.current.click()}>
                       <PhotographIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
-                      <input type="file" hidden ref={filePickerRef} onClick={addImageToPost} />
+                      <input type="file" hidden ref={filePickerRef} onChange={addImageToPost} />
                     </div>
                       <EmojiHappyIcon className="h-10 w-10 hoverEffect p-2 text-sky-500 hover:bg-sky-100" />
                   </div>
