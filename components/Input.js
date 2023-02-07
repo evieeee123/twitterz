@@ -1,4 +1,4 @@
-import { EmojiHappyIcon, PhotographIcon } from "@heroicons/react/outline";
+import { EmojiHappyIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import { collection, serverTimestamp } from "firebase/firestore";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
@@ -64,7 +64,8 @@ export default function Input() {
                   <textarea className="w-full border-none focus:ring-0 text-lg placehoder-gray-700 tracking-wide min-h-[50px] text-gray-700" rows={2} placeholder="What's happening?" value={input} onChange={(e) => setInput(e.target.value)}></textarea>
               </div>
               {selectedFile && (
-                <div className="">
+                <div className="relative">
+                  <XIcon onClick={() => setSelectedFile(null)} className="h-7 text-black absolute cursor-pointer shadow-md shadow-white rounded-full" />
                   <img src={selectedFile} alt="" />
                 </div>
               )}
