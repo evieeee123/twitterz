@@ -1,16 +1,26 @@
 import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, TrashIcon } from '@heroicons/react/outline'
 import React from 'react'
 import Moment from 'react-moment';
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, onSnapshot, collection } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { db } from '../firebase';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Post({post}) {
-  const {data: session} = useSession()
+  const {data: session} = useSession();
+  const [likes, setLikes] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "posts", post.id, "likes"), (snapshot) => setLikes(snapshot.docs)
+    )
+  }, [db])
+
   async function likePost() {
     await setDoc(doc(db, "posts", post.id, "likes", session.user.uid), {
-      usename: session.user.usename
-    })
+      usename: session.user.username
+    });
   }
 
   return (
