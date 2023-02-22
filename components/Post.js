@@ -1,5 +1,6 @@
 import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, TrashIcon } from '@heroicons/react/outline'
-import React from 'react'
+import React from 'react';
+import { HeartIcon as HeartIconFilled } from '@heroicons/react/solid';
 import Moment from 'react-moment';
 import { setDoc, doc, onSnapshot, collection } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
@@ -10,12 +11,18 @@ import { useEffect } from 'react';
 export default function Post({post}) {
   const {data: session} = useSession();
   const [likes, setLikes] = useState([]);
+  const [hasliked, setHasLiked] = useState(false);
+
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
       collection(db, "posts", post.id, "likes"), (snapshot) => setLikes(snapshot.docs)
     )
   }, [db])
+
+  useEffect(() => {
+    setHasLiked(likes.findIndex((like) => like.id === session.user.uid) !==-1)
+  }, [likes])
 
   async function likePost() {
     await setDoc(doc(db, "posts", post.id, "likes", session.user.uid), {
@@ -53,7 +60,12 @@ export default function Post({post}) {
             <div className='flex justify-between text-gray-500 p-2'>
                 <ChatIcon className='h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100' />
                 <TrashIcon className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />
-                <HeartIcon onClick={likePost} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />
+                {hasliked ? 
+                (<HeartIconFilled onClick={likePost} className='h-9 w-9 hoverEffect p-2 text-red-600 hover:bg-red-100' />) 
+                : (<HeartIcon onClick={likePost} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />)
+                }
+                
+                
                 <ShareIcon className='h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100' />
                 <ChartBarIcon className='h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100' />
             </div>
