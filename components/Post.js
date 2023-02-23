@@ -2,7 +2,7 @@ import { ChartBarIcon, ChatIcon, DotsHorizontalIcon, HeartIcon, ShareIcon, Trash
 import React from 'react';
 import { HeartIcon as HeartIconFilled } from '@heroicons/react/solid';
 import Moment from 'react-moment';
-import { setDoc, doc, onSnapshot, collection } from 'firebase/firestore';
+import { setDoc, doc, onSnapshot, collection, deleteDoc } from 'firebase/firestore';
 import { useSession } from 'next-auth/react';
 import { db } from '../firebase';
 import { useState } from 'react';
@@ -21,13 +21,17 @@ export default function Post({post}) {
   }, [db])
 
   useEffect(() => {
-    setHasLiked(likes.findIndex((like) => like.id === session.user.uid) !==-1)
+    setHasLiked(likes.findIndex((like) => like.id === session?.user.uid) !==-1)
   }, [likes])
 
   async function likePost() {
-    await setDoc(doc(db, "posts", post.id, "likes", session.user.uid), {
-      usename: session.user.username
-    });
+    if (hasliked) {
+      await deleteDoc(doc(db, "posts", post.id, "likes", session?.user.uid))
+    } else {
+      await setDoc(doc(db, "posts", post.id, "likes", session?.user.uid), {
+        usename: session.user.username
+      });
+    }
   }
 
   return (
