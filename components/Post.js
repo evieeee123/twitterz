@@ -64,10 +64,17 @@ export default function Post({post}) {
             <div className='flex justify-between text-gray-500 p-2'>
                 <ChatIcon className='h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100' />
                 <TrashIcon className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />
+                <div className='flex items-center'>
                 {hasliked ? 
                 (<HeartIconFilled onClick={likePost} className='h-9 w-9 hoverEffect p-2 text-red-600 hover:bg-red-100' />) 
                 : (<HeartIcon onClick={likePost} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />)
                 }
+                {
+                  likes.length > 0 && (
+                <span className={`${hasliked && "text-red-600"} text-sm select-none`}>{likes.length}</span>
+                  )
+                }
+                </div>
                 
                 
                 <ShareIcon className='h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100' />
