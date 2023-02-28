@@ -3,7 +3,7 @@ import React from 'react';
 import { HeartIcon as HeartIconFilled } from '@heroicons/react/solid';
 import Moment from 'react-moment';
 import { setDoc, doc, onSnapshot, collection, deleteDoc } from 'firebase/firestore';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { db } from '../firebase';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -25,12 +25,16 @@ export default function Post({post}) {
   }, [likes])
 
   async function likePost() {
-    if (hasliked) {
-      await deleteDoc(doc(db, "posts", post.id, "likes", session?.user.uid))
+    if (session) {
+      if (hasliked) {
+        await deleteDoc(doc(db, "posts", post.id, "likes", session?.user.uid))
+      } else {
+        await setDoc(doc(db, "posts", post.id, "likes", session?.user.uid), {
+          usename: session.user.username
+        });
+      }
     } else {
-      await setDoc(doc(db, "posts", post.id, "likes", session?.user.uid), {
-        usename: session.user.username
-      });
+      signIn()
     }
   }
 
