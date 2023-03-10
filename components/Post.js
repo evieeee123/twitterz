@@ -40,8 +40,10 @@ export default function Post({post}) {
   }
 
   async function deletePost() {
-    deleteDoc(doc(db, "posts", post.id))
-    deleteObject(ref(storage, `posts/${post.id}/image`))
+    if (window.confirm("Are you sure you want to delete this post?")){
+      deleteDoc(doc(db, "posts", post.id))
+      deleteObject(ref(storage, `posts/${post.id}/image`))
+    }
   }
 
   return (
