@@ -1,6 +1,7 @@
 import { SearchIcon } from "@heroicons/react/outline";
 import News from "./News";
 import {useState} from 'react'
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Widgets({newsResults, randomUsersResults}) {
     const [articleNum, setArticleNum] = useState(3);
@@ -16,9 +17,13 @@ export default function Widgets({newsResults, randomUsersResults}) {
 
         <div className="text-gray-700 space-y-3 bg-gray-100 rounded-xl pt-2 w-[90%] xl:w-[75%]">
             <h4 className="font-bold text-xl px-4 ">What's happening</h4>
-            {newsResults.slice(0, articleNum).map((article) => (
-                <News key={article.title} article={article} />
-            ))}
+            <AnimatePresence>
+                {newsResults.slice(0, articleNum).map((article) => (
+                    <motion.div key={article.title} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}} transition={{duration: 1}}>
+                        <News key={article.title} article={article} />
+                    </motion.div>
+                ))}
+            </AnimatePresence>
             <button onClick={() => setArticleNum(articleNum + 3)} className="text-blue-300 pl-4 pb-3 hover:text-blue-400">Show more</button>
         </div>
 
