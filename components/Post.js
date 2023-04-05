@@ -15,7 +15,7 @@ export default function Post({post}) {
   const {data: session} = useSession();
   const [likes, setLikes] = useState([]);
   const [hasliked, setHasLiked] = useState(false);
-  const [open, setOpen] = useRecoilState(modalState)
+  const [open, setOpen] = useRecoilState(modalState);
 
 
   useEffect(() => {
