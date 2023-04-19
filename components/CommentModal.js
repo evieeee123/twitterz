@@ -1,10 +1,11 @@
 import { useRecoilState } from "recoil";
-import { modalState } from "../atom/modalAtom";
+import { modalState, postIdState } from "../atom/modalAtom";
 import Modal from "react-modal";
 import { XIcon } from "@heroicons/react/outline";
 
 export default function CommentModal() {
     const [open, setOpen] = useRecoilState(modalState)
+    const [postId] = useRecoilState(postIdState)
 
   return (
     <div>
@@ -20,6 +21,7 @@ export default function CommentModal() {
                             <XIcon className="h-[22px] text-gray-700" />
                         </div>
                     </div>
+                    <h1>{postId}</h1>
                 </div>
             </Modal>
         )}
