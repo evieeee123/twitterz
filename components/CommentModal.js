@@ -13,7 +13,7 @@ export default function CommentModal() {
     const [post, setPost] = useState({})
 
     useEffect(() => {
-        onSnapshot(doc(db, 'posts', postId), (snapshot) => {(setPost(snapshot.docs))})
+        onSnapshot(doc(db, "posts", postId), (snapshot) => {(setPost(snapshot))})
     }, [postId, db])
 
   return (
@@ -30,7 +30,8 @@ export default function CommentModal() {
                             <XIcon className="h-[22px] text-gray-700" />
                         </div>
                     </div>
-                    <h1>{post?.data().username}</h1>
+                      
+                    <img className='h-11 w-11 rounded-full mr-4' src={post.data().userImg} alt='user-image' />
                 </div>
             </Modal>
         )}
