@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { XIcon } from "@heroicons/react/outline";
 import { useEffect } from "react";
 import { db } from "../firebase";
-import { doc, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, doc, onSnapshot, serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
 import Moment from "react-moment";
 import {useSession} from "next-auth/react";
@@ -24,8 +24,17 @@ export default function CommentModal({post}) {
         });
     }, [postId, db])
 
-    function sendComment() {
-
+    // addDoc is returning a promise, so it need to use async function
+    async function sendComment() {
+        await addDoc(collection(db, "posts", postId, "comments"), {
+            comment: input,
+            name: session.user.name,
+            username: session.user.username,
+            userImg: session.user.image,
+            timestamp: serverTimestamp()
+        })
+        setOpen(false)
+        setInput("")
     }
 
   return (

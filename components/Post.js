@@ -55,7 +55,7 @@ export default function Post({post}) {
         {/* image */}
         <img className='h-11 w-11 rounded-full mr-4' src={post.data().userImg} alt='user-image' />
         {/* right side */}
-        <div className=''>
+        <div className='flex-1'>
         {/* header */}
 
             <div className='flex items-center justify-between'>
