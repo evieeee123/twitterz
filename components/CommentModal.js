@@ -10,13 +10,15 @@ import Moment from "react-moment";
 import {useSession} from "next-auth/react";
 import { PhotographIcon } from "@heroicons/react/outline";
 import { EmojiHappyIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 export default function CommentModal({post}) {
     const [open, setOpen] = useRecoilState(modalState);
     const [postId] = useRecoilState(postIdState);
     const [p, setPost] = useState({});
     const [input, setInput] = useState("");
-    const {data: session} = useSession()
+    const {data: session} = useSession();
+    const router = useRouter()
 
     useEffect(() => {
         onSnapshot(doc(db, "posts", postId), (snapshot) => {
@@ -35,6 +37,7 @@ export default function CommentModal({post}) {
         })
         setOpen(false)
         setInput("")
+        router.push(`posts/${postId}`)
     }
 
   return (
