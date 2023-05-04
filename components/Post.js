@@ -85,7 +85,7 @@ export default function Post({post}) {
             <img className='rounded-2xl mr-2' src={post.data().image} alt='post image' />
               {/* icons */}
             <div className='flex justify-between text-gray-500 p-2'>
-              <div className=''>
+              <div className='flex items-center select-none'>
                 <ChatIcon onClick={() => {
                   if (!session) {
                     signIn()
@@ -96,7 +96,7 @@ export default function Post({post}) {
                 }
                 } className='h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100' />
                 {comments.length > 0 && (
-                  <span>{comments.length}</span>
+                  <span className='text-sm'>{comments.length}</span>
                 )}
               </div>
                 
