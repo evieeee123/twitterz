@@ -1,11 +1,14 @@
+import { ArrowLeftIcon } from '@heroicons/react/outline'
 import Head from 'next/head'
 import CommentModal from '../../components/CommentModal'
 import Sidebar from '../../components/Sidebar'
 import Widgets from '../../components/Widgets'
+import { useRouter } from 'next/router'
 
 
 
 export default function Post({ newsResults, randomUsersResults }) {
+    const router = useRouter()
     return (
         <div>
             <Head>
@@ -21,8 +24,11 @@ export default function Post({ newsResults, randomUsersResults }) {
 
                 {/* feed */}
                 <div className="xl:ml-[370px] border-l border-r xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl border-gray-200">
-                    <div className="flex py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
-                        <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Home</h2>
+                    <div className="flex items-center space-x-2 py-2 px-3 sticky top-0 z-50 bg-white border-b border-gray-200">
+                        <div className='hoverEffect' onClick={() => router.push("/")}>
+                            <ArrowLeftIcon className='h-5'/>
+                        </div>
+                        <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Tweet</h2>
                         
                     </div>
                     
