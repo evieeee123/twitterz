@@ -11,7 +11,7 @@ import { deleteObject, ref } from 'firebase/storage';
 import { useRecoilState } from 'recoil';
 import { modalState, postIdState } from '../atom/modalAtom';
 
-export default function Post({post}) {
+export default function Post({post, id}) {
   const {data: session} = useSession();
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
@@ -22,13 +22,13 @@ export default function Post({post}) {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      collection(db, "posts", post.id, "likes"), (snapshot) => setLikes(snapshot.docs)
+      collection(db, "posts", id, "likes"), (snapshot) => setLikes(snapshot.docs)
     )
   }, [db])
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
-      collection(db, "posts", post.id, "comments"), (snapshot) => setComments(snapshot.docs)
+      collection(db, "posts", id, "comments"), (snapshot) => setComments(snapshot.docs)
     )
   }, [db])
 
@@ -39,9 +39,9 @@ export default function Post({post}) {
   async function likePost() {
     if (session) {
       if (hasliked) {
-        await deleteDoc(doc(db, "posts", post.id, "likes", session?.user.uid))
+        await deleteDoc(doc(db, "posts", id, "likes", session?.user.uid))
       } else {
-        await setDoc(doc(db, "posts", post.id, "likes", session?.user.uid), {
+        await setDoc(doc(db, "posts", id, "likes", session?.user.uid), {
           usename: session.user.username
         });
       }
@@ -52,8 +52,8 @@ export default function Post({post}) {
 
   async function deletePost() {
     if (window.confirm("Are you sure you want to delete this post?")){
-      deleteDoc(doc(db, "posts", post.id))
-      deleteObject(ref(storage, `posts/${post.id}/image`))
+      deleteDoc(doc(db, "posts", id))
+      deleteObject(ref(storage, `posts/${id}/image`))
     }
   }
 
@@ -90,7 +90,7 @@ export default function Post({post}) {
                   if (!session) {
                     signIn()
                   } else {
-                    setPostId(post.id)
+                    setPostId(id)
                     setOpen(!open);
                   }
                 }

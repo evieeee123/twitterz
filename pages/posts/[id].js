@@ -3,12 +3,21 @@ import Head from 'next/head'
 import CommentModal from '../../components/CommentModal'
 import Sidebar from '../../components/Sidebar'
 import Widgets from '../../components/Widgets'
+import Post from '../../components/Post'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { onSnapshot } from 'firebase/firestore'
+import { useState } from 'react/cjs/react.production.min'
 
 
 
 export default function Post({ newsResults, randomUsersResults }) {
-    const router = useRouter()
+    const router = useRouter();
+    const {id} = router.query;
+    const [post, setPost] = useState()
+
+    useEffect(() => onSnapshot(doc(db, "posts", id), (snapshot) => setPost(snapshot)), [db, id])
+
     return (
         <div>
             <Head>
@@ -31,7 +40,7 @@ export default function Post({ newsResults, randomUsersResults }) {
                         <h2 className="text-lg sm:text-xl font-bold cursor-pointer">Tweet</h2>
                         
                     </div>
-                    
+                    <Post id = {id} post={post} />
                 </div>
 
                 {/* widgets */}
