@@ -6,12 +6,13 @@ import Widgets from '../../components/Widgets'
 import Post from '../../components/Post'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import { onSnapshot } from 'firebase/firestore'
-import { useState } from 'react/cjs/react.production.min'
+import { doc, onSnapshot } from 'firebase/firestore'
+import { useState } from 'react'
+import { db } from '../../firebase'
 
 
 
-export default function Post({ newsResults, randomUsersResults }) {
+export default function PostPage({ newsResults, randomUsersResults }) {
     const router = useRouter();
     const {id} = router.query;
     const [post, setPost] = useState()
