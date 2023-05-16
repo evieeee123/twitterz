@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { useState } from 'react'
 import { db } from '../../firebase'
+import { query, collection, orderBy } from 'firebase/firestore'
 
 
 
@@ -17,7 +18,11 @@ export default function PostPage({ newsResults, randomUsersResults }) {
     const {id} = router.query;
     const [post, setPost] = useState()
 
+    // get post data
     useEffect(() => onSnapshot(doc(db, "posts", id), (snapshot) => setPost(snapshot)), [db, id])
+
+    // get comments of the post
+    useEffect(() => {onSnapshot(query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")))}, [db, id])
 
     return (
         <div>
