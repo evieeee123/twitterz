@@ -17,12 +17,18 @@ export default function PostPage({ newsResults, randomUsersResults }) {
     const router = useRouter();
     const {id} = router.query;
     const [post, setPost] = useState()
+    const [comment, setComment] = useState([])
 
     // get post data
     useEffect(() => onSnapshot(doc(db, "posts", id), (snapshot) => setPost(snapshot)), [db, id])
 
     // get comments of the post
-    useEffect(() => {onSnapshot(query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")))}, [db, id])
+    useEffect(() => {onSnapshot(
+        query(
+            collection(db, "posts", id, "comments"), 
+            orderBy("timestamp", "desc")
+        ), (snapshot) => setComment(snapshot.docs)
+        )}, [db, id])
 
     return (
         <div>
