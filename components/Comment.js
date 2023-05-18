@@ -1,6 +1,6 @@
 
-export default function Comment() {
+export default function Comment({comment, id}) {
   return (
-    <div>comment</div>
+    <div>{comment.comment}</div>
   )
 }
