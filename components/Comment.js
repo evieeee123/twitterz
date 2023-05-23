@@ -13,10 +13,9 @@ import { useRecoilState } from 'recoil';
 import { modalState, postIdState } from '../atom/modalAtom';
 import { useRouter } from 'next/router';
 
-export default function Post({ post, id }) {
+export default function Comment({ comment, commentId, originalPostId }) {
     const { data: session } = useSession();
     const [likes, setLikes] = useState([]);
-    const [comments, setComments] = useState([]);
     const [hasliked, setHasLiked] = useState(false);
     const [open, setOpen] = useRecoilState(modalState);
     const [postId, setPostId] = useRecoilState(postIdState);
@@ -24,26 +23,20 @@ export default function Post({ post, id }) {
 
     useEffect(() => {
         const unsubscribe = onSnapshot(
-            collection(db, "posts", id, "likes"), (snapshot) => setLikes(snapshot.docs)
+            collection(db, "posts", originalPostId, "comments", commentId, "likes"), (snapshot) => setLikes(snapshot.docs)
         )
-    }, [db])
-
-    useEffect(() => {
-        const unsubscribe = onSnapshot(
-            collection(db, "posts", id, "comments"), (snapshot) => setComments(snapshot.docs)
-        )
-    }, [db])
+    }, [db, originalPostId, commentId])
 
     useEffect(() => {
         setHasLiked(likes.findIndex((like) => like.id === session?.user.uid) !== -1)
     }, [likes])
 
-    async function likePost() {
+    async function likeComment() {
         if (session) {
             if (hasliked) {
-                await deleteDoc(doc(db, "posts", id, "likes", session?.user.uid))
+                await deleteDoc(doc(db, "posts", originalPostId, "comments", commentId, "likes", session?.user.uid))
             } else {
-                await setDoc(doc(db, "posts", id, "likes", session?.user.uid), {
+                await setDoc(doc(db, "posts", originalPostId, "comments", commentId, "likes", session?.user.uid), {
                     usename: session.user.username
                 });
             }
