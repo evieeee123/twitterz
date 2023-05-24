@@ -45,13 +45,9 @@ export default function Comment({ comment, commentId, originalPostId }) {
         }
     }
 
-    async function deletePost() {
-        if (window.confirm("Are you sure you want to delete this post?")) {
-            deleteDoc(doc(db, "posts", id))
-            if (post.data().image) {
-                deleteObject(ref(storage, `posts/${id}/image`))
-            }
-            router.push("/")
+    async function deleteComment() {
+        if (window.confirm("Are you sure you want to delete this comment?")) {
+            deleteDoc(doc(db, "posts", originalPostId, "comments", commentId))
         }
 
     }
