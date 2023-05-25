@@ -55,7 +55,7 @@ export default function Comment({ comment, commentId, originalPostId }) {
     return (
         <div className='flex p-3 cursor-pointer border-b border-gray-200'>
             {/* image */}
-            <img className='h-11 w-11 rounded-full mr-4' src={post?.data()?.userImg} alt='user-image' />
+            <img className='h-11 w-11 rounded-full mr-4' src={comment?.data()?.userImg} alt='user-image' />
             {/* right side */}
             <div className='flex-1'>
                 {/* header */}
@@ -63,11 +63,11 @@ export default function Comment({ comment, commentId, originalPostId }) {
                 <div className='flex items-center justify-between'>
                     {/* post user info */}
                     <div className='flex items-center space-x-1 whitespace-nowrap'>
-                        <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>{post?.data()?.name}</h4>
-                        <span className='text-sm sm:text-[15px]'>@{post?.data()?.username} - </span>
+                        <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>{comment?.data()?.name}</h4>
+                        <span className='text-sm sm:text-[15px]'>@{comment?.data()?.username} - </span>
                         <span className='text-sm sm:text-[15px] hover:underline'>
                             {/* {post.timestamp} */}
-                            <Moment fromNow>{post?.data().timestamp?.toDate()}</Moment>
+                            <Moment fromNow>{comment?.data().timestamp?.toDate()}</Moment>
                         </span>
                     </div>
                     {/* dot icon */}
@@ -75,9 +75,8 @@ export default function Comment({ comment, commentId, originalPostId }) {
                 </div>
 
                 {/* post text */}
-                <p className='text-gray-700 text-[15px] sm:text-[16px] mb-2'>{post?.data()?.text}</p>
-                {/* post image */}
-                <img className='rounded-2xl mr-2' src={post?.data()?.image} alt='post image' />
+                <p className='text-gray-700 text-[15px] sm:text-[16px] mb-2'>{comment?.data()?.comment}</p>
+                
                 {/* icons */}
                 <div className='flex justify-between text-gray-500 p-2'>
                     <div className='flex items-center select-none'>
@@ -85,14 +84,12 @@ export default function Comment({ comment, commentId, originalPostId }) {
                             if (!session) {
                                 signIn()
                             } else {
-                                setPostId(id)
+                                setPostId(originalPostId)
                                 setOpen(!open);
                             }
                         }
                         } className='h-9 w-9 hoverEffect p-2 hover:text-sky-500 hover:bg-sky-100' />
-                        {comments.length > 0 && (
-                            <span className='text-sm'>{comments.length}</span>
-                        )}
+
                     </div>
 
                     {session?.user.uid === post?.data()?.id && (
