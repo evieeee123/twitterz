@@ -55,7 +55,7 @@ export default function Comment({ comment, commentId, originalPostId }) {
     return (
         <div className='flex p-3 cursor-pointer border-b border-gray-200'>
             {/* image */}
-            <img className='h-11 w-11 rounded-full mr-4' src={comment?.data()?.userImg} alt='user-image' />
+            <img className='h-11 w-11 rounded-full mr-4' src={comment?.userImg} alt='user-image' />
             {/* right side */}
             <div className='flex-1'>
                 {/* header */}
@@ -63,11 +63,11 @@ export default function Comment({ comment, commentId, originalPostId }) {
                 <div className='flex items-center justify-between'>
                     {/* post user info */}
                     <div className='flex items-center space-x-1 whitespace-nowrap'>
-                        <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>{comment?.data()?.name}</h4>
-                        <span className='text-sm sm:text-[15px]'>@{comment?.data()?.username} - </span>
+                        <h4 className='font-bold text-[15px] sm:text-[16px] hover:underline'>{comment?.name}</h4>
+                        <span className='text-sm sm:text-[15px]'>@{comment?.username} - </span>
                         <span className='text-sm sm:text-[15px] hover:underline'>
                             {/* {post.timestamp} */}
-                            <Moment fromNow>{comment?.data().timestamp?.toDate()}</Moment>
+                            <Moment fromNow>{comment?.timestamp?.toDate()}</Moment>
                         </span>
                     </div>
                     {/* dot icon */}
@@ -75,7 +75,7 @@ export default function Comment({ comment, commentId, originalPostId }) {
                 </div>
 
                 {/* post text */}
-                <p className='text-gray-700 text-[15px] sm:text-[16px] mb-2'>{comment?.data()?.comment}</p>
+                <p className='text-gray-700 text-[15px] sm:text-[16px] mb-2'>{comment?.comment}</p>
                 
                 {/* icons */}
                 <div className='flex justify-between text-gray-500 p-2'>
@@ -92,13 +92,13 @@ export default function Comment({ comment, commentId, originalPostId }) {
 
                     </div>
 
-                    {session?.user.uid === post?.data()?.id && (
-                        <TrashIcon onClick={deletePost} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />
+                    {session?.user.uid === comment?.id && (
+                        <TrashIcon onClick={deleteComment} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />
                     )}
                     <div className='flex items-center'>
                         {hasliked ?
-                            (<HeartIconFilled onClick={likePost} className='h-9 w-9 hoverEffect p-2 text-red-600 hover:bg-red-100' />)
-                            : (<HeartIcon onClick={likePost} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />)
+                            (<HeartIconFilled onClick={likeComment} className='h-9 w-9 hoverEffect p-2 text-red-600 hover:bg-red-100' />)
+                            : (<HeartIcon onClick={likeComment} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />)
                         }
                         {
                             likes.length > 0 && (
