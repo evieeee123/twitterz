@@ -53,7 +53,7 @@ export default function Comment({ comment, commentId, originalPostId }) {
     }
 
     return (
-        <div className='flex p-3 cursor-pointer border-b border-gray-200'>
+        <div className='flex p-3 cursor-pointer border-b border-gray-200 pl-20'>
             {/* image */}
             <img className='h-11 w-11 rounded-full mr-4' src={comment?.userImg} alt='user-image' />
             {/* right side */}
@@ -92,7 +92,7 @@ export default function Comment({ comment, commentId, originalPostId }) {
 
                     </div>
 
-                    {session?.user.uid === comment?.id && (
+                    {session?.user.uid === comment?.userId && (
                         <TrashIcon onClick={deleteComment} className='h-9 w-9 hoverEffect p-2 hover:text-red-600 hover:bg-red-100' />
                     )}
                     <div className='flex items-center'>
