@@ -10,7 +10,7 @@ import { doc, onSnapshot } from 'firebase/firestore'
 import { useState } from 'react'
 import { db } from '../../firebase'
 import { query, collection, orderBy } from 'firebase/firestore'
-import Comment from '../../components/comment'
+import Comment from '../../components/Comment'
 import { AnimatePresence, motion } from 'framer-motion'
 
 
